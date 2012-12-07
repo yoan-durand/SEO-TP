@@ -23,43 +23,38 @@ import urlloading.LoadUrl;
  */
 public class CorpusLoad 
 {
-    private HashMap<String, Double> finalMap;
-    private HashMap<String, Double> otherMap;
+    private HashMap<String, Double> firstMap;
+    private HashMap<String, Double> secondMap;
 
-    public HashMap<String, Double> getOtherMap() 
-    {
-        return otherMap;
+    public HashMap<String, Double> getFirstMap() {
+        return firstMap;
     }
 
-    public void setOtherMap(HashMap<String, Double> otherMap) 
-    {
-        this.otherMap = otherMap;
+    public void setFirstMap(HashMap<String, Double> firstMap) {
+        this.firstMap = firstMap;
     }
 
-    public HashMap<String, Double> getFinalMap() 
-    {
-        return finalMap;
+    public HashMap<String, Double> getSecondMap() {
+        return secondMap;
     }
 
-    public void setFinalMap(HashMap<String, Double> finalMap)
-    {
-        this.finalMap = finalMap;
+    public void setSecondMap(HashMap<String, Double> secondMap) {
+        this.secondMap = secondMap;
     }
-    
-    
-    
+
     public static void Load(String filename) throws IOException
     {
         File  corpus = new File(filename);
         BufferedReader reader = new BufferedReader(new FileReader(corpus));
         String line;
         HTMLParser parser = new HTMLParser();
+         int i = 0;
         while ((line = reader.readLine()) != null)
         {
-            int i = 0;
+           
             URL url = new URL(line);
             System.out.println("lecture de " + line);
-            try (FileWriter urlFile = new FileWriter("url_"+i+".txt", true)) 
+            try (FileWriter urlFile = new FileWriter("corpus/url_"+i+".txt", true)) 
             {
                 parser.LemProcess(LoadUrl.LoadUrl(url));
                 try (BufferedWriter bw = new BufferedWriter(urlFile)) 

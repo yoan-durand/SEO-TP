@@ -7,9 +7,12 @@ package comparepage;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import org.jsoup.Jsoup;
@@ -128,10 +131,10 @@ public class HTMLParser
         
         try
         {
-            File  dic = new File("src/Dico/dico/dico_" + word.toLowerCase().charAt(0) + ".txt");
-            BufferedReader reader = new BufferedReader(new FileReader(dic));
+            File f = new File("src/Dico/dico/dico_" + word.toLowerCase().charAt(0) + ".txt");
+            InputStream in = new FileInputStream(f);                        
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in, "ISO-8859-15"));
             String line;
-
             while ((line = reader.readLine()) != null)
             {
 

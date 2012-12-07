@@ -10,6 +10,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  *
@@ -50,20 +53,49 @@ public class Tools
      return ( Math.log10(corpussize/nbfileswithword));
    }
    
-   public void FillMap(String filename) throws FileNotFoundException, IOException
+   public void FillMap() throws FileNotFoundException, IOException
     {
-        File  corpus = new File(filename);
+        File  corpus = new File("corpus");
+        String[] strTab = corpus.list();
         CorpusLoad cl = new CorpusLoad();
-        BufferedReader reader = new BufferedReader(new FileReader(corpus));
-        String line;
-        while ((line = reader.readLine()) != null)
+        for(String str : strTab)
         {
-            String[] lineStr = line.split(" ");
-            for (String str: lineStr)
+            File f = new File(str);
+            BufferedReader reader = new BufferedReader(new FileReader(f));
+            String line;
+            while ((line = reader.readLine()) != null)
             {
-               cl.getFinalMap().put(str, Double.valueOf(0));
-               cl.getOtherMap().put(str, Double.valueOf(0));
+                String[] lineStr = line.split(" ");
+                for (String l: lineStr)
+                {
+                   cl.getFirstMap().put(l, Double.valueOf(0));
+                   cl.getSecondMap().put(l, Double.valueOf(0));
+                }
             }
         }
+        
+
     }
+   
+    public double cosStalton (HashMap v1, HashMap v2)
+   {
+       double d1 = 0;
+       double d2 = 0;
+       double d1d2 = 0;
+       Set cles = v1.keySet();
+       Iterator it = cles.iterator();
+       while (it.hasNext())
+       {
+           String key = (String) it.next();
+           double val1 = (double) v1.get(key);
+           double val2 = (double) v2.get(key);
+           d1 += val1;
+           d2 += val2;
+           d1d2 += (val1 * val2);
+       }
+
+       return ((d1d2)/(d1 * d2));
+   }
+   
+   
 }
