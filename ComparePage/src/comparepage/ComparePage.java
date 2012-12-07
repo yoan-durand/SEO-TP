@@ -4,6 +4,7 @@
  */
 package comparepage;
 
+import corpus.CorpusLoad;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -20,21 +21,6 @@ public class ComparePage {
      */
     public static void main(String[] args) throws MalformedURLException, IOException 
     {
-        URL url = new URL(args[0]);
-        String result;
-        result = LoadUrl.LoadUrl(url);
-       
-        result = HTMLParser.Parse(result);
-        
-        try {
-            // TODO code application logic here
-            String lemmeword = ComparePage.lemmeword("sableront");
-            System.out.println(lemmeword);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(ComparePage.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(ComparePage.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        CorpusLoad.Load(args[0]);        
     }
 }
