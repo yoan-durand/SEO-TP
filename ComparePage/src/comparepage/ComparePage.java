@@ -26,7 +26,15 @@ public class ComparePage {
        
         result = HTMLParser.Parse(result);
         
-        
+        try {
+            // TODO code application logic here
+            String lemmeword = ComparePage.lemmeword("sableront");
+            System.out.println(lemmeword);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ComparePage.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ComparePage.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
 }
