@@ -22,13 +22,13 @@ public class LoadUrl
         
     }
     
-    public static String loadUrl(URL url) throws IOException 
+    public static String LoadUrl(URL url) throws IOException 
     {
         InputStream stream = null;
         try 
         {
             stream = url.openStream();
-            return loadStream(stream);
+            return LoadStream(stream);
         } 
         finally 
         {
@@ -45,7 +45,7 @@ public class LoadUrl
         }
     }
     
-     public static String loadStream(InputStream stream) throws IOException 
+     public static String LoadStream(InputStream stream) throws IOException 
      {
         Reader reader = new InputStreamReader(stream, Charset.forName("UTF-8"));
         char[] buffer = new char[1024];
