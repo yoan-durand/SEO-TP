@@ -43,7 +43,7 @@ public class ComparePage
             CorpusLoad.Load("corpus/urlscorpus.txt");        
         }
         
-        t.FillMap();
+        t.FillMap(cl);
         doc1 = LoadUrl.LoadUrl(url1);
         doc2 = LoadUrl.LoadUrl(url2);
         
@@ -53,29 +53,32 @@ public class ComparePage
        
         for(String str : list)
         {
-            int tf = Collections.frequency(list, str);
-            int nbmf = 0;
-            double idf = 0;
-            
-            for(int i=0; i < 19; i++)
-            {
-                File file = new File("corpus/url_"+i+".txt");
-                BufferedReader reader = new BufferedReader(new FileReader(file));
-                String line;
-                line = reader.readLine();
-                if (t.IsinFile(str, line))
+                if (str != null && !str.equals(""))
                 {
-                    nbmf++;
-                }
+                    int tf = Collections.frequency(list, str);
+                    int nbmf = 0;
+                    double idf = 0;
+
+                    for(int i=0; i < 8; i++)
+                    {
+                        File file = new File("corpus/url_"+i+".txt");
+                        BufferedReader reader = new BufferedReader(new FileReader(file));
+                        String line;
+                        line = reader.readLine();
+                        if (t.IsinFile(str, line))
+                        {
+                            nbmf++;
+                        }
+                    }
+                    if (nbmf > 0)
+                    {
+                        idf = t.idf(20, nbmf); 
+                        idf *= tf;
+                        double nb = cl.getFirstMap().get(str);
+                        nb++;
+                        cl.getFirstMap().put(str, nb);
+                    } 
             }
-            if (nbmf > 0)
-            {
-                idf = t.idf(20, nbmf); 
-                idf *= tf;
-                double nb = cl.getFirstMap().get(str);
-                nb++;
-                cl.getFirstMap().put(str, nb);
-            } 
         }
         
         parser.LemProcess(doc2);

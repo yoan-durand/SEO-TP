@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -38,14 +39,18 @@ public class Tools
     //idf
    public boolean IsinFile (String word, String doc)
    {
-       if (doc.indexOf(word) != -1)
+       if (word != null)
        {
-           return true;
+            if (doc.indexOf(word) != -1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
        }
-       else
-       {
-           return false;
-       }
+       return false;
    }
   
    public double idf (int corpussize, int nbfileswithword)
@@ -53,14 +58,12 @@ public class Tools
      return ( Math.log10(corpussize/nbfileswithword));
    }
    
-   public void FillMap() throws FileNotFoundException, IOException
+   public void FillMap(CorpusLoad cl) throws FileNotFoundException, IOException
     {
-        File  corpus = new File("corpus");
-        String[] strTab = corpus.list();
-        CorpusLoad cl = new CorpusLoad();
-        for(String str : strTab)
+                
+        for (int i = 0; i < 8; i++)
         {
-            File f = new File(str);
+            File f = new File("corpus/url_"+i+".txt");
             BufferedReader reader = new BufferedReader(new FileReader(f));
             String line;
             while ((line = reader.readLine()) != null)

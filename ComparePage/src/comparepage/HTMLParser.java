@@ -49,7 +49,8 @@ public class HTMLParser
     
   public HTMLParser()
   {
-      
+      this.docHTML = new String();
+      this.docStr = new ArrayList<>();
   }
   
   public void Parse(String html)
@@ -70,54 +71,21 @@ public class HTMLParser
       tabStr = this.docHTML.split(" ");
             
       for(String str : tabStr)
-      {
-          
-            
+      {  
           if (str.length() > 2)
-          {
-            if (str.charAt(0) == '(')
-            {
-                str = str.substring(str.indexOf('(') + 1, str.length()-1);
-            }
-            if (str.charAt(str.length()-1) == '(')
-            {
-                str = str.substring(0, str.length()-2);
-            }
-            if (str.charAt(0) == '«')
-            {
-                str = str.substring(1, str.length()-1);
-            }
-            if (str.charAt(str.length()-1) == '»')
-            {
-                str = str.substring(0, str.length()-2);
-            }
+          {           
             if (str.contains("\'"))
             {
                
                     str = str.substring(str.indexOf("\'")+1, str.length()-1);
             }
-             
-            if (str.contains(","))
-            {
-                if (str.length() > str.indexOf(',') - 1)
-                    str = str.substring(0, str.indexOf(',') - 1);
-            }
-            if (str.contains(";"))
-            {
-                if (str.length() > str.indexOf(';') - 1)
-                {
-                    str = str.substring(0, str.indexOf(';') - 1);
-                }
-            }
-            if (str.contains(":"))
-            {
-                if (str.length() > str.indexOf(':') - 1)
-                    str = str.substring(0, str.indexOf(':') - 1);
-            }
              if (str.length() > 2)
             {
                 str = this.lemmeword(str);
-                list.add(str);
+               if ((str != null) && (!str.equals("")) )
+               {
+                    list.add(str);
+               }
             }
           }
       }
@@ -148,7 +116,7 @@ public class HTMLParser
         }
         catch (Exception e)
         {
-         return word.toLowerCase();
+         return null;
         }
     }
     

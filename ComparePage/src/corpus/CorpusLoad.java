@@ -42,6 +42,11 @@ public class CorpusLoad
         this.secondMap = secondMap;
     }
 
+    public CorpusLoad ()
+            {
+                this.firstMap = new HashMap<>();
+                this.secondMap = new HashMap<>();
+            }
     public static void Load(String filename) throws IOException
     {
         File  corpus = new File(filename);
@@ -50,8 +55,7 @@ public class CorpusLoad
         HTMLParser parser = new HTMLParser();
          int i = 0;
         while ((line = reader.readLine()) != null)
-        {
-           
+        {  
             URL url = new URL(line);
             System.out.println("lecture de " + line);
             try (FileWriter urlFile = new FileWriter("corpus/url_"+i+".txt", true)) 
@@ -67,7 +71,7 @@ public class CorpusLoad
                 }
             }
             i++;
-            System.out.println("fichier creer");  
+            System.out.println("corpus/url_"+i+".txt");  
         }
     }
     
