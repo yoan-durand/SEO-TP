@@ -82,7 +82,7 @@ public class Tools
    
     public double cosStalton (HashMap v1, HashMap v2)
    {
-       double d1 = 0;
+        double d1 = 0;
        double d2 = 0;
        double d1d2 = 0;
        Set cles = v1.keySet();
@@ -92,11 +92,13 @@ public class Tools
            String key = (String) it.next();
            double val1 = (double) v1.get(key);
            double val2 = (double) v2.get(key);
-           d1 += val1;
-           d2 += val2;
-           d1d2 += (val1 * val2);
+           d1 += val1 * val1;
+           d2 += val2 * val2;
+           d1d2 += (val1 * val2)*(val1 * val2);
        }
-
+       d1 = Math.sqrt(d1);
+       d2 = Math.sqrt(d2);
+       d1d2 = Math.sqrt(d1d2);
        return ((d1d2)/(d1 * d2));
    }
    
